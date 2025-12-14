@@ -1,0 +1,1231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pratika Rokka — HR Operations | Co-op Portfolio</title>
+  <meta name="description" content="Pratika Rokka — HR Operations Co-op Portfolio. Recruitment, onboarding, payroll support, scheduling, employee engagement, performance management." />
+  <style>
+    :root{
+      --bg: #070A12;
+      --panel: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --subtle: rgba(255,255,255,0.55);
+
+      --a: #7C3AED;   /* violet */
+      --b: #22D3EE;   /* cyan */
+      --shadow2: 0 10px 35px rgba(0,0,0,0.45);
+      --radius: 18px;
+      --radius2: 26px;
+
+      --max: 1120px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:var(--font);
+      background:
+        radial-gradient(900px 500px at 10% 10%, rgba(124,58,237,0.28), transparent 60%),
+        radial-gradient(900px 500px at 90% 20%, rgba(34,211,238,0.20), transparent 55%),
+        linear-gradient(180deg, #040712 0%, #060A18 55%, #040712 100%);
+      overflow-x:hidden;
+    }
+
+    /* Subtle animated grain */
+    .grain{
+      pointer-events:none;
+      position:fixed;
+      inset:-30%;
+      opacity:.12;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='420' height='420' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      transform:translate3d(0,0,0);
+      animation: grainMove 10s steps(6) infinite;
+    }
+    @keyframes grainMove{
+      0%{ transform:translate(-2%, -1%) }
+      20%{ transform:translate(1%, -2%) }
+      40%{ transform:translate(3%, 1%) }
+      60%{ transform:translate(-1%, 3%) }
+      80%{ transform:translate(-3%, 1%) }
+      100%{ transform:translate(-2%, -1%) }
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ width:min(var(--max), calc(100% - 48px)); margin:0 auto; }
+
+    /* Top bar */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(7,10,18,.75) 0%, rgba(7,10,18,.45) 100%);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .topbar .inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+      gap:18px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 240px;
+    }
+    .logo{
+      width:42px; height:42px; border-radius:14px;
+      background:
+        radial-gradient(12px 12px at 25% 25%, rgba(255,255,255,.55), transparent 60%),
+        linear-gradient(135deg, rgba(124,58,237,1), rgba(34,211,238,1));
+      box-shadow: 0 10px 30px rgba(124,58,237,.25);
+      border:1px solid rgba(255,255,255,0.18);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.30), transparent 65%);
+      transform: rotate(15deg);
+      animation: sheen 5s ease-in-out infinite;
+      opacity:.65;
+    }
+    @keyframes sheen{
+      0%{ transform:translateX(-30%) rotate(15deg) }
+      50%{ transform:translateX(30%) rotate(15deg) }
+      100%{ transform:translateX(-30%) rotate(15deg) }
+    }
+    .brand .name{
+      display:flex; flex-direction:column; line-height:1.1;
+    }
+    .brand .name strong{ font-size:15px; letter-spacing:.2px; }
+    .brand .name span{ font-size:12px; color:var(--subtle); }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .nav a{
+      font-size:13px;
+      color:var(--muted);
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+      transition: .2s ease;
+    }
+    .nav a:hover{
+      color:var(--text);
+      border-color: rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:11px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.08);
+      color:var(--text);
+      font-size:13px;
+      cursor:pointer;
+      transition:.2s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,.15);
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.10); }
+    .btn:active{ transform: translateY(0px); }
+    .btn.primary{
+      border-color: rgba(124,58,237,0.65);
+      background: linear-gradient(135deg, rgba(124,58,237,0.90), rgba(34,211,238,0.35));
+      box-shadow: 0 16px 45px rgba(124,58,237,.22);
+    }
+    .btn .dot{
+      width:9px; height:9px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.2));
+      box-shadow: 0 0 0 6px rgba(34,211,238,0.15);
+    }
+
+    /* Hero */
+    .hero{ padding:52px 0 28px; }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.18fr .82fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns:1fr; }
+      .brand{ min-width:unset; }
+    }
+
+    .card{
+      background: var(--panel);
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(700px 220px at 10% 10%, rgba(124,58,237,.22), transparent 60%),
+                  radial-gradient(700px 220px at 85% 30%, rgba(34,211,238,.16), transparent 60%);
+      pointer-events:none;
+      opacity:.65;
+    }
+    .card > .pad{ position:relative; padding:26px; }
+
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-size:12px;
+      letter-spacing:.35px;
+      color:var(--muted);
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .kicker b{
+      font-family:var(--mono);
+      font-weight:600;
+      color: rgba(255,255,255,.86);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:42px;
+      line-height:1.05;
+      letter-spacing:-.6px;
+    }
+    @media (max-width:520px){ h1{ font-size:34px; } }
+    .subtitle{
+      margin:0;
+      font-size:15px;
+      color:var(--muted);
+      line-height:1.6;
+      max-width: 64ch;
+    }
+
+    .pillRow{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:16px;
+    }
+    .pill{
+      font-size:12px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.82);
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .pill svg{ opacity:.85; }
+
+    .heroActions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:20px; }
+
+    /* Right hero panel */
+    .side{ background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.04)); }
+    .profile{ display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap; }
+
+    /* BIG photo area */
+    .photoColumn{
+      width:100%;
+    }
+    .photoWrap{
+      width:100%;
+      height: 360px;               /* BIG space */
+      max-height: 360px;
+      border-radius: 24px;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(34,211,238,.85), rgba(124,58,237,.85));
+      box-shadow: 0 18px 55px rgba(34,211,238,.12);
+      border:1px solid rgba(255,255,255,0.14);
+      overflow:hidden;
+    }
+    @media (max-width: 980px){
+      .photoWrap{ height: 420px; max-height: 420px; } /* more room on mobile */
+    }
+    .photo{
+      width:100%;
+      height:100%;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      object-fit:cover;
+      display:block;
+    }
+    .photoHint{
+      margin-top:10px;
+      font-size:11.5px;
+      color: rgba(255,255,255,0.55);
+      line-height:1.45;
+    }
+    .photoHint code{
+      font-family: var(--mono);
+      font-size:11px;
+      background: rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.12);
+      padding:2px 6px;
+      border-radius: 8px;
+    }
+
+    .profileMeta{
+      margin-top:14px;
+    }
+    .profileMeta h2{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .profileMeta p{
+      margin:4px 0 0;
+      font-size:12px;
+      color:var(--subtle);
+    }
+
+    .mini{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .mini .tile{
+      padding:14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+    }
+    .tile .label{
+      font-size:12px;
+      color:var(--subtle);
+      margin-bottom:8px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .tile .value{
+      font-size:14px;
+      color:rgba(255,255,255,0.88);
+      line-height:1.35;
+    }
+    .tile .value a{
+      color: rgba(255,255,255,0.92);
+      text-decoration: underline;
+      text-decoration-color: rgba(34,211,238,0.45);
+      text-underline-offset: 3px;
+    }
+
+    .divider{
+      height:1px;
+      margin:18px 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
+    }
+
+    .ctaBox{
+      margin-top:14px;
+      padding:16px;
+      border-radius: 18px;
+      border:1px solid rgba(124,58,237,0.30);
+      background: radial-gradient(500px 120px at 20% 20%, rgba(124,58,237,0.18), transparent 60%),
+                  rgba(255,255,255,0.05);
+    }
+    .ctaBox strong{ display:block; font-size:13px; }
+    .ctaBox span{ display:block; margin-top:6px; font-size:12px; color:var(--muted); line-height:1.55; }
+
+    /* Sections */
+    section{ padding: 22px 0; }
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      margin: 10px 0 14px;
+    }
+    .sectionHead h3{ margin:0; font-size:18px; letter-spacing:.2px; }
+    .sectionHead p{
+      margin:0;
+      font-size:12px;
+      color:var(--subtle);
+      max-width:60ch;
+      line-height:1.5;
+      text-align:right;
+    }
+    @media (max-width:760px){ .sectionHead{ align-items:flex-start; flex-direction:column; } .sectionHead p{ text-align:left; } }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+    }
+    @media (max-width: 980px){ .grid2{ grid-template-columns:1fr; } }
+
+    .panel{
+      background: rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 55px rgba(0,0,0,0.25);
+      overflow:hidden;
+    }
+    .panel .pad{ padding:18px; }
+
+    .timeline{ display:flex; flex-direction:column; gap:14px; }
+    .item{
+      padding:16px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      position:relative;
+      overflow:hidden;
+    }
+    .item::after{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background: radial-gradient(500px 100px at 0% 0%, rgba(34,211,238,.10), transparent 60%);
+      pointer-events:none;
+      opacity:.85;
+    }
+    .item .top{
+      position:relative;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:baseline;
+    }
+    .role{ font-weight:650; letter-spacing:.15px; font-size:14px; }
+    .meta{ font-size:12px; color:var(--subtle); }
+    .company{
+      margin-top:6px;
+      font-size:12px;
+      color:rgba(255,255,255,0.85);
+      position:relative;
+      display:flex; align-items:center; gap:10px;
+      flex-wrap:wrap;
+    }
+    .company .tag{
+      font-size:11px;
+      padding:5px 9px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color:rgba(255,255,255,0.75);
+    }
+    ul{
+      margin:12px 0 0;
+      padding:0 0 0 18px;
+      position:relative;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:13px;
+    }
+    li{ margin:6px 0; }
+
+    /* Skills */
+    .skillGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 980px){ .skillGrid{ grid-template-columns:repeat(2,1fr); } }
+    @media (max-width: 520px){ .skillGrid{ grid-template-columns:1fr; } }
+
+    .skill{
+      padding:14px 14px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      position:relative;
+      overflow:hidden;
+    }
+    .skill::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(420px 120px at 20% 10%, rgba(124,58,237,.14), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .skill .k{ position:relative; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .skill .k b{ font-size:13px; }
+    .skill .k span{
+      font-family:var(--mono);
+      font-size:11px;
+      color:rgba(255,255,255,0.60);
+      border:1px solid rgba(255,255,255,0.12);
+      padding:4px 8px;
+      border-radius:999px;
+      background: rgba(0,0,0,0.18);
+    }
+    .bar{
+      position:relative;
+      height:9px;
+      border-radius:999px;
+      background: rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.10);
+      margin-top:10px;
+      overflow:hidden;
+    }
+    .bar > i{
+      display:block;
+      height:100%;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(124,58,237,0.95), rgba(34,211,238,0.80));
+      box-shadow: 0 10px 25px rgba(124,58,237,0.18);
+      transform: translateX(-8px);
+      opacity:.95;
+    }
+    .hint{
+      position:relative;
+      margin-top:8px;
+      color:var(--subtle);
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    /* Contact */
+    .contactGrid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .contactGrid{ grid-template-columns:1fr; } }
+
+    .contactCard{
+      padding:22px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,0.14);
+      background:
+        radial-gradient(600px 160px at 10% 10%, rgba(34,211,238,0.14), transparent 60%),
+        radial-gradient(600px 160px at 90% 10%, rgba(124,58,237,0.16), transparent 60%),
+        rgba(255,255,255,0.05);
+      box-shadow: var(--shadow2);
+    }
+    .contactCard h4{ margin:0; font-size:16px; }
+    .contactCard p{ margin:10px 0 0; color:var(--muted); font-size:13px; line-height:1.65; }
+
+    .contactList{ margin-top:16px; display:flex; flex-direction:column; gap:10px; }
+    .contactRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+    }
+    .contactRow .left{ display:flex; gap:10px; align-items:center; min-width: 0; }
+    .ic{
+      width:34px; height:34px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      display:flex; align-items:center; justify-content:center;
+      flex: 0 0 auto;
+    }
+    .contactRow .txt{ min-width:0; }
+    .contactRow .txt b{ display:block; font-size:13px; }
+    .contactRow .txt span{
+      display:block;
+      font-size:12px;
+      color:var(--subtle);
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      max-width: 52ch;
+    }
+
+    .foot{ padding: 18px 0 42px; color:rgba(255,255,255,0.45); font-size:12px; }
+    .foot .wrap{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .smallLinks{ display:flex; gap:12px; flex-wrap:wrap; color:rgba(255,255,255,0.52); }
+    .smallLinks a{ text-decoration:underline; text-decoration-color: rgba(124,58,237,0.35); text-underline-offset: 3px; }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <header class="topbar">
+    <div class="wrap">
+      <div class="inner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div class="name">
+            <strong>Pratika Rokka</strong>
+            <span>HR Operations • Recruitment • Onboarding • Payroll Support</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#education">Education</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+          <button class="btn" id="modeBtn" type="button" title="Toggle reduced motion">
+            <span class="dot" aria-hidden="true"></span>
+            <span id="modeText">Motion: On</span>
+          </button>
+          <a class="btn primary" href="#contact" title="Get in touch">
+            <span aria-hidden="true">✦</span> Hire for Co-op
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="heroGrid">
+          <div class="card">
+            <div class="pad">
+              <div class="kicker">
+                <b>HR CO-OP READY</b>
+                <span>North York / GTA • On-site or Hybrid</span>
+              </div>
+
+              <h1>Human Resources Operations<br/>with real leadership experience.</h1>
+              <p class="subtitle">
+                Human Resources student at George Brown College pursuing <strong>CHRP</strong>, with <strong>8+ years</strong> of leadership in fast-paced environments and
+                accounting expertise. Proven strengths in <strong>recruitment</strong>, <strong>onboarding</strong>, <strong>training</strong>, <strong>scheduling</strong>,
+                <strong>payroll support</strong>, and <strong>performance management</strong>.
+              </p>
+
+              <div class="pillRow" aria-label="Highlights">
+                <span class="pill">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  30+ hires recruited & trained
+                </span>
+                <span class="pill">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Team of 20+ supported
+                </span>
+                <span class="pill">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 19V5m0 14h16M8 17V9m4 8v-6m4 6V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  HR + payroll + scheduling
+                </span>
+                <span class="pill">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 21s8-4.5 8-11V5l-8-3-8 3v5c0 6.5 8 11 8 11z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  </svg>
+                  Confidential & detail-oriented
+                </span>
+              </div>
+
+              <div class="heroActions">
+                <button class="btn primary" id="downloadBtn" type="button" title="Download a resume PDF">
+                  <span aria-hidden="true">⤓</span> Download Resume (PDF)
+                </button>
+                <a class="btn" href="mailto:pratika.rokka@gmail.com?subject=HR%20Co-op%20Opportunity%20-%20Pratika%20Rokka&body=Hi%20Pratika%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect%20about%20an%20HR%20Co-op%20opportunity.%0A%0AThanks%2C" title="Email Pratika">
+                  <span aria-hidden="true">✉</span> Email
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card side">
+            <div class="pad">
+              <!-- BIG photo slot -->
+              <div class="photoColumn">
+                <div class="photoWrap" title="Profile photo">
+                  <!-- Replace "profile.jpg" with your image file name in the same folder as this HTML -->
+                  <img class="photo" src="profile.jpg" alt="Pratika Rokka headshot" />
+                </div>
+               
+
+                <div class="profileMeta">
+                  <h2>Available for HR Co-op / Internship</h2>
+                  <p>North York / GTA • 30 hrs/week (as per co-op)</p>
+                </div>
+              </div>
+
+              <div class="mini">
+                <div class="tile">
+                  <div class="label">📍 Location</div>
+                  <div class="value">Kitchener, ON (open to GTA)</div>
+                </div>
+                <div class="tile">
+                  <div class="label">🎓 Focus</div>
+                  <div class="value">HR Operations + CHRP Path</div>
+                </div>
+                <div class="tile">
+                  <div class="label">🧾 Tools</div>
+                  <div class="value">Excel, Word, PowerPoint<br/>QuickBooks, Sage 300</div>
+                </div>
+                <div class="tile">
+                  <div class="label">🗣 Languages</div>
+                  <div class="value">English • Nepali • Hindi</div>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="ctaBox">
+                <strong>What you get on Day 1</strong>
+                <span>
+                  Someone who can support recruiting admin, interview scheduling, onboarding checklists,
+                  employee file accuracy, payroll assistance, and engagement coordination — with calm, reliable execution.
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="wrap">
+        <div class="sectionHead">
+          <h3>About</h3>
+          <p>Professional snapshot built to help recruiters quickly understand fit for HR Operations co-op roles.</p>
+        </div>
+
+        <div class="grid2">
+          <div class="panel">
+            <div class="pad">
+              <p style="margin:0;color:var(--muted);line-height:1.7;font-size:13.5px;">
+                I’m an HR student at <strong>George Brown College</strong> (pursuing <strong>CHRP</strong>) with a strong track record
+                leading teams in high-volume operations. My background combines <strong>people leadership</strong> (hiring, coaching,
+                performance conversations) with <strong>administrative accuracy</strong> (scheduling, payroll support, documentation, compliance).
+                I thrive in environments that value <strong>confidentiality</strong>, <strong>organization</strong>, and <strong>clear communication</strong>.
+              </p>
+
+              <div class="divider"></div>
+
+              <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                <span class="pill">✅ Recruitment coordination</span>
+                <span class="pill">✅ Onboarding & orientation</span>
+                <span class="pill">✅ Employee records</span>
+                <span class="pill">✅ Scheduling operations</span>
+                <span class="pill">✅ Payroll support</span>
+                <span class="pill">✅ Engagement initiatives</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="pad">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
+                <div>
+                  <div style="font-size:12px;color:var(--subtle);">Target Roles</div>
+                  <div style="margin-top:6px;font-size:14px;font-weight:650;">HR Operations Co-op • HR Assistant • HR Coordinator (Intern)</div>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                  <span class="pill">⭐ Fast learner</span>
+                  <span class="pill">⭐ Detail-oriented</span>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div style="display:grid;gap:10px;">
+                <div class="contactRow" style="padding:14px; justify-content:flex-start;">
+                  <div class="left">
+                    <div class="ic" aria-hidden="true">📌</div>
+                    <div class="txt">
+                      <b>Strengths employers notice</b>
+                      <span style="white-space:normal;">Team leadership, calm under pressure, policy-friendly mindset, strong follow-through</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="contactRow" style="padding:14px; justify-content:flex-start;">
+                  <div class="left">
+                    <div class="ic" aria-hidden="true">🧠</div>
+                    <div class="txt">
+                      <b>Academic interest</b>
+                      <span style="white-space:normal;">HR compliance, employee engagement, recruitment best practices, performance support</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="wrap">
+        <div class="sectionHead">
+          <h3>Experience</h3>
+          <p>Selected roles aligned to HR operations: recruitment, onboarding, scheduling, payroll support, and performance management.</p>
+        </div>
+
+        <div class="panel">
+          <div class="pad">
+            <div class="timeline">
+
+              <div class="item">
+                <div class="top">
+                  <div class="role">Store / Human Resources Manager</div>
+                  <div class="meta">Sept 2022 – Present</div>
+                </div>
+                <div class="company">
+                  Tim Hortons • Kitchener, ON
+                  <span class="tag">People Leadership</span>
+                  <span class="tag">HR Operations</span>
+                </div>
+                <ul>
+                  <li>Recruited, onboarded, and trained <strong>30+ employees</strong>, reducing turnover and ensuring service quality.</li>
+                  <li>Oversaw daily operations including <strong>staffing, scheduling, payroll support</strong>, and performance management for a team of <strong>20+</strong>.</li>
+                  <li>Conducted performance evaluations and delivered coaching to strengthen productivity and service outcomes.</li>
+                  <li>Implemented recognition and engagement initiatives to boost morale and employee commitment.</li>
+                  <li>Audited inventory, cash handling, and compliance standards to maintain operational efficiency.</li>
+                </ul>
+              </div>
+
+              <div class="item">
+                <div class="top">
+                  <div class="role">Assistant Store Manager</div>
+                  <div class="meta">Apr 2018 – Feb 2019</div>
+                </div>
+                <div class="company">
+                  Tim Hortons • Kitchener, ON
+                  <span class="tag">Training</span>
+                  <span class="tag">Scheduling</span>
+                </div>
+                <ul>
+                  <li>Supported hiring and onboarding workflows, training plans, shift coverage, and operational scheduling.</li>
+                  <li>Helped enforce workplace standards and coached team members to meet performance expectations.</li>
+                </ul>
+              </div>
+
+              <div class="item">
+                <div class="top">
+                  <div class="role">Accountant</div>
+                  <div class="meta">Nov 2012 – Jul 2015</div>
+                </div>
+                <div class="company">
+                  Industrial Trade Concern • Kathmandu, Nepal
+                  <span class="tag">Accounting</span>
+                  <span class="tag">Accuracy</span>
+                </div>
+                <ul>
+                  <li>Managed accounts payable/receivable, bank reconciliations, and financial reporting.</li>
+                  <li>Assisted with tax return preparation and compliance with accounting standards.</li>
+                  <li>Supported budgeting and forecasting to improve financial decision-making.</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="wrap">
+        <div class="sectionHead">
+          <h3>Education</h3>
+          <p>HR specialization built on a strong business and accounting foundation.</p>
+        </div>
+
+        <div class="grid2">
+          <div class="panel">
+            <div class="pad">
+              <div class="timeline">
+                <div class="item">
+                  <div class="top">
+                    <div class="role">Diploma — Human Resources Management</div>
+                    <div class="meta">Sept 2024 – May 2025 (Expected)</div>
+                  </div>
+                  <div class="company">George Brown College • Toronto, ON <span class="tag">CHRP Path</span></div>
+                  <ul>
+                    <li>Building HR foundations in recruitment, onboarding, employee relations, compliance, and engagement.</li>
+                  </ul>
+                </div>
+
+                <div class="item">
+                  <div class="top">
+                    <div class="role">Advanced Diploma — Business Administration (Accounting)</div>
+                    <div class="meta">Sept 2015 – Apr 2018</div>
+                  </div>
+                  <div class="company">Conestoga College • Kitchener, ON</div>
+                  <ul>
+                    <li>Strengthened analytical thinking and process accuracy beneficial for HR operations and payroll support.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="pad">
+              <div class="timeline">
+                <div class="item">
+                  <div class="top">
+                    <div class="role">Bachelor of Business Studies</div>
+                    <div class="meta">Sept 2012 – Apr 2014</div>
+                  </div>
+                  <div class="company">Tribhuvan University • Kathmandu, Nepal</div>
+                  <ul>
+                    <li>Business fundamentals supporting organizational, administrative, and people operations work.</li>
+                  </ul>
+                </div>
+
+                <div class="item">
+                  <div class="top">
+                    <div class="role">FIA Diploma (concurrent with BBS)</div>
+                    <div class="meta">Sept 2012 – Apr 2014</div>
+                  </div>
+                  <div class="company">National College of Accountancy • Kathmandu, Nepal</div>
+                  <ul>
+                    <li>Developed discipline in documentation, accuracy, and structured reporting.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="wrap">
+        <div class="sectionHead">
+          <h3>Skills</h3>
+          <p>Built for HR operations roles: admin excellence, people support, and reliable execution.</p>
+        </div>
+
+        <div class="panel">
+          <div class="pad">
+            <div class="skillGrid" id="skillGrid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="sectionHead">
+          <h3>Contact</h3>
+          <p>Fast ways to reach out.</p>
+        </div>
+
+        <div class="contactGrid">
+          <div class="contactCard">
+            <h4>Let’s connect for an HR Co-op opportunity</h4>
+            <p>
+              I’m actively applying to HR operations co-op / internship roles. If you’re hiring for HR admin support,
+              recruitment coordination, onboarding, scheduling, payroll support, or employee engagement — I’d love to connect.
+            </p>
+
+            <div class="contactList">
+              <div class="contactRow">
+                <div class="left">
+                  <div class="ic" aria-hidden="true">✉️</div>
+                  <div class="txt">
+                    <b>Email</b>
+                    <span><a href="mailto:pratika.rokka@gmail.com">pratika.rokka@gmail.com</a></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contactRow">
+                <div class="left">
+                  <div class="ic" aria-hidden="true">📞</div>
+                  <div class="txt">
+                    <b>Phone</b>
+                    <span><a href="tel:+12268994455">+1 (226) 899-4455</a></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contactRow">
+                <div class="left">
+                  <div class="ic" aria-hidden="true">🔗</div>
+                  <div class="txt">
+                    <b>LinkedIn</b>
+                    <span>
+                      <a href="https://www.linkedin.com/in/pratika-rokka-b5312314a/" target="_blank" rel="noopener noreferrer">
+                        linkedin.com/in/pratika-rokka-b5312314a
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <a class="btn primary" href="mailto:pratika.rokka@gmail.com?subject=HR%20Co-op%20-%20Interview%20Availability&body=Hi%20Pratika%2C%0A%0AI%E2%80%99d%20like%20to%20schedule%20a%20quick%20conversation%20about%20an%20HR%20Co-op%20role.%20Are%20you%20available%20this%20week%3F%0A%0AThanks%2C" >
+                <span aria-hidden="true">📅</span> Request Availability
+              </a>
+              <button class="btn" id="downloadBtn2" type="button">
+                <span aria-hidden="true">⤓</span> Download Resume (PDF)
+              </button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="pad">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
+                <div>
+                  <div style="font-size:12px;color:var(--subtle);">Looking for</div>
+                  <div style="margin-top:6px;font-size:14px;font-weight:650;">HR Operations Co-op / Internship (Immediate start)</div>
+                </div>
+                <span class="pill">✅ Open to GTA</span>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="timeline">
+                <div class="item">
+                  <div class="top">
+                    <div class="role">How I can help your HR team</div>
+                    <div class="meta">Day-to-day support</div>
+                  </div>
+                  <ul>
+                    <li>Job postings, resume screening, interview scheduling</li>
+                    <li>Onboarding checklists, orientation materials, file setup</li>
+                    <li>Employee record updates with confidentiality</li>
+                    <li>Scheduling assistance and operations admin support</li>
+                    <li>Employee engagement & wellness coordination</li>
+                    <li>Payroll and benefits administration support</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="foot">
+      <div class="wrap">
+        <div>© <span id="year"></span> Pratika Rokka • HR Operations Portfolio</div>
+        <div class="smallLinks">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const skills = [
+      { name: "Recruitment & Selection", level: 88, note: "Job postings, screening, interview coordination, hiring support." },
+      { name: "Onboarding & Training", level: 90, note: "Orientation materials, checklists, coaching and training plans." },
+      { name: "Employee Relations", level: 82, note: "Supportive communication, issue escalation, professional discretion." },
+      { name: "Scheduling & Operations", level: 92, note: "Shift planning, coverage, time management in busy operations." },
+      { name: "Payroll Support", level: 84, note: "Time tracking accuracy, payroll coordination, documentation." },
+      { name: "Performance Management", level: 86, note: "Feedback, evaluations, coaching to improve outcomes." },
+      { name: "Employee Engagement", level: 80, note: "Recognition initiatives, morale, retention-focused culture." },
+      { name: "HR Administration", level: 88, note: "Employee files, confidentiality, record updates, process follow-through." },
+      { name: "Microsoft Office (Excel/Word/Outlook)", level: 90, note: "Professional documents, tracking sheets, communication." },
+      { name: "QuickBooks", level: 76, note: "Accounting accuracy and reporting familiarity." },
+      { name: "Sage 300", level: 70, note: "Exposure to structured systems and data integrity." },
+      { name: "Analytical & Organizational", level: 90, note: "Detail-oriented, problem-solving, reliable execution." },
+    ];
+
+    const grid = document.getElementById('skillGrid');
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[s]));
+    }
+    function renderSkills(){
+      grid.innerHTML = skills.map(s => `
+        <div class="skill">
+          <div class="k">
+            <b>${escapeHtml(s.name)}</b>
+            <span>${s.level}%</span>
+          </div>
+          <div class="bar" aria-label="${escapeHtml(s.name)} level">
+            <i style="width:${s.level}%"></i>
+          </div>
+          <div class="hint">${escapeHtml(s.note)}</div>
+        </div>
+      `).join('');
+    }
+    renderSkills();
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        if(!id || id === "#") return;
+        const el = document.querySelector(id);
+        if(!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    const modeBtn = document.getElementById('modeBtn');
+    const modeText = document.getElementById('modeText');
+    let motionOn = true;
+    modeBtn.addEventListener('click', ()=>{
+      motionOn = !motionOn;
+      document.querySelector('.grain').style.display = motionOn ? 'block' : 'none';
+      modeText.textContent = motionOn ? "Motion: On" : "Motion: Off";
+
+      const styleId = 'rm-style';
+      let s = document.getElementById(styleId);
+      if(!motionOn){
+        if(!s){
+          s = document.createElement('style');
+          s.id = styleId;
+          s.textContent = `*{ animation: none !important; transition: none !important; }`;
+          document.head.appendChild(s);
+        }
+      }else{
+        if(s) s.remove();
+      }
+    });
+
+    function openResumePrint(){
+      const w = window.open('', '_blank');
+      const html = `
+<!doctype html><html><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Pratika Rokka — Resume</title>
+<style>
+  body{ font-family: Arial, Helvetica, sans-serif; margin: 28px; color:#111; }
+  h1{ margin:0; font-size:22px; }
+  .top{ display:flex; justify-content:space-between; gap:18px; align-items:flex-start; }
+  .meta{ font-size:11.5px; color:#333; margin-top:6px; }
+  h2{ font-size:13px; margin:18px 0 8px; text-transform:uppercase; letter-spacing:.8px; }
+  .role{ font-weight:700; }
+  .row{ display:flex; justify-content:space-between; gap:12px; }
+  ul{ margin:8px 0 0; padding-left:18px; }
+  li{ margin:5px 0; font-size:12px; line-height:1.5; }
+  .small{ font-size:12px; line-height:1.55; }
+  .hr{ height:1px; background:#ddd; margin:14px 0; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div>
+      <h1>Pratika Rokka</h1>
+      <div class="meta">Kitchener, ON, Canada • pratika.rokka@gmail.com • +1 (226) 899-4455</div>
+      <div class="meta">LinkedIn: linkedin.com/in/pratika-rokka-b5312314a</div>
+    </div>
+    <div class="meta">Target: HR Operations Co-op / Internship</div>
+  </div>
+
+  <div class="hr"></div>
+
+  <h2>Professional Summary</h2>
+  <div class="small">
+    Human Resources student at George Brown College pursuing CHRP designation. 8+ years of leadership experience in the food service industry combined with accounting expertise. Skilled in recruitment, onboarding, training, payroll, and performance management. Recognized for building collaborative teams and driving employee engagement while maintaining operational efficiency.
+  </div>
+
+  <h2>Experience</h2>
+
+  <div class="row">
+    <div><span class="role">Store / Human Resources Manager</span> — Tim Hortons (Kitchener, ON)</div>
+    <div class="meta">Sept 2022 – Present</div>
+  </div>
+  <ul>
+    <li>Recruited, onboarded, and trained 30+ employees, reducing turnover and ensuring service quality.</li>
+    <li>Oversaw daily operations including staffing, scheduling, payroll, and performance management for a team of 20+.</li>
+    <li>Conducted performance evaluations and provided coaching to improve productivity and service outcomes.</li>
+    <li>Implemented employee recognition and engagement initiatives to boost retention and morale.</li>
+    <li>Audited inventory, cash handling, and compliance standards to ensure operational efficiency.</li>
+  </ul>
+
+  <div class="row" style="margin-top:10px;">
+    <div><span class="role">Assistant Store Manager</span> — Tim Hortons (Kitchener, ON)</div>
+    <div class="meta">Apr 2018 – Feb 2019</div>
+  </div>
+
+  <div class="row" style="margin-top:10px;">
+    <div><span class="role">Accountant</span> — Industrial Trade Concern (Kathmandu, Nepal)</div>
+    <div class="meta">Nov 2012 – Jul 2015</div>
+  </div>
+  <ul>
+    <li>Managed accounts payable/receivable, bank reconciliations, and financial reporting.</li>
+    <li>Assisted with tax return preparation and ensured compliance with accounting standards.</li>
+    <li>Supported management in budgeting and forecasting to improve financial decision-making.</li>
+  </ul>
+
+  <h2>Education</h2>
+  <div class="row">
+    <div><span class="role">Diploma, Human Resources Management</span> — George Brown College (Toronto, ON)</div>
+    <div class="meta">Sept 2024 – May 2025 (Expected)</div>
+  </div>
+  <div class="row" style="margin-top:6px;">
+    <div><span class="role">Advanced Diploma, Business Administration – Accounting</span> — Conestoga College (Kitchener, ON)</div>
+    <div class="meta">Sept 2015 – Apr 2018</div>
+  </div>
+  <div class="row" style="margin-top:6px;">
+    <div><span class="role">Bachelor of Business Studies</span> — Tribhuvan University (Kathmandu, Nepal)</div>
+    <div class="meta">Sept 2012 – Apr 2014</div>
+  </div>
+  <div class="row" style="margin-top:6px;">
+    <div><span class="role">FIA Diploma (concurrent with BBS)</span> — National College of Accountancy (Kathmandu, Nepal)</div>
+    <div class="meta">Sept 2012 – Apr 2014</div>
+  </div>
+
+  <h2>Skills</h2>
+  <div class="small">
+    <b>HR & Leadership:</b> Recruitment & Selection, Training & Development, Employee Relations, Payroll, Scheduling, Performance Management.<br/>
+    <b>Technical:</b> Microsoft Office (Word, Excel, PowerPoint), QuickBooks, Sage 300.<br/>
+    <b>Languages:</b> English, Nepali, Hindi.<br/>
+    <b>Analytical:</b> Problem-solving, decision-making, time management, organizational skills.
+  </div>
+
+  <div class="hr"></div>
+  <div class="meta">Tip: Use Print → “Save as PDF” to export this resume.</div>
+</body></html>`;
+      w.document.write(html);
+      w.document.close();
+      w.focus();
+      setTimeout(()=> { try { w.print(); } catch(e){} }, 350);
+    }
+
+    document.getElementById('downloadBtn').addEventListener('click', openResumePrint);
+    document.getElementById('downloadBtn2').addEventListener('click', openResumePrint);
+  </script>
+</body>
+</html>
